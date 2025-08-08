@@ -3,8 +3,9 @@
 
 
 def matrix_transpose(matrix):
-    return [[matrix[i][j] for i in range(len(matrix))] for j in range(len(matrix[0]))] 
-
+    """This function returns the transpose of a 2D matrix"""
+    return [[matrix[i][j] for i in range(len(matrix))]
+            for j in range(len(matrix[0]))]
 
 
 if __name__ == "__main__":
