@@ -1,4 +1,4 @@
-#!/usr/bin/env pytyhon3
+#!/usr/bin/env python3
 """Howdy Partner"""
 
 
