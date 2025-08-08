@@ -11,7 +11,7 @@ def add_arrays(arr1, arr2):
         return arr
     else:
         None
-        
+ 
 
 if __name__ == "__main__":
     arr1 = [1, 2, 3, 4]
