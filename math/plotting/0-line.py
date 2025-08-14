@@ -9,3 +9,5 @@ def line():
     x = np.arange(0, 11)
     plt.plot(x, y, color = "red")
     plt.show()
+
+line()
