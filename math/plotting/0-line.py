@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
+"""Plotting."""
 import numpy as np
 import matplotlib.pyplot as plt
 
-def line():
 
+def line():
+    """Plot a line where x axis is numbers 0-10 and y is x**3."""
     y = np.arange(0, 11) ** 3
     plt.figure(figsize=(6.4, 4.8))
 
-    x = np.arange(0, 11)
-    plt.plot(x, y, c = "red")
+    plt.plot(y, 'r-')
+    plt.axis((0, 10, None, None))
     plt.show()
-
-line()
