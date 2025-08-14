@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
-"""Plotting."""
+"""
+Module that plots y = x^3 as a solid red line with x-axis from 0 to 10
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 def line():
-    """Plot a line where x axis is numbers 0-10 and y is x**3."""
+    """
+    Plots y = x^3 as a red line, with the x-axis ranging from 0 to 10
+    """
     y = np.arange(0, 11) ** 3
-    plt.figure(figsize=(6.4, 4.8))
-
-    plt.plot(y, 'r-')
-    plt.axis((0, 10, None, None))
+    x = np.arange(0, 11)
+    plt.plot(x, y, color="red")
+    plt.xlim(0, 10)
     plt.show()
+
+
+if __name__ == "__main__":
+    line()
