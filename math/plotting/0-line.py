@@ -8,7 +8,7 @@ def line():
     plt.figure(figsize=(6.4, 4.8))
     
     x = np.arange(0, 11)
-    plt.plot(x, y, color = "red")
+    plt.plot(x, y, c = "red")
     plt.show()
 
 line()
