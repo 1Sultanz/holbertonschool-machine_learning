@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def frequency():
-    """Source code to plot a histogram 
+    """Source code to plot a histogram
     of student scores for a project"""
     np.random.seed(5)
     student_grades = np.random.normal(68, 15, 50)
