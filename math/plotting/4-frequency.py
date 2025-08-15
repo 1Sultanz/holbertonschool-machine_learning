@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def frequency():
     """Source code to plot a histogram 
     of student scores for a project"""
@@ -12,7 +13,7 @@ def frequency():
 
     bins = range(0, 101, 10)
     plt.hist(student_grades, bins=bins, edgecolor="black")
-    plt.axis(0, 100, 0, 30)
+    plt.axis((0, 100, 0, 30))
     plt.xlabel("Grades")
     plt.ylabel("Number of Students")
     plt.title("Project A")
