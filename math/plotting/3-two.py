@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def two():
     """Source code to plot x ↦ y as a line graph"""
     x = np.arange(0, 21000, 1000)
@@ -19,5 +20,5 @@ def two():
     plt.ylabel("Fraction Remaining")
     plt.title("Exponential Decay of Radioactive Elements")
     plt.axis((0, 20000, 0, 1))
-    plt.legend(["C-14","Ra-226"])
+    plt.legend(["C-14", "Ra-226"])
     plt.show()
