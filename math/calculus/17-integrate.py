@@ -1,16 +1,25 @@
 #!/usr/bin/env python3
-"""Integrate."""
+""" This module contain the function called poly_integral """
+
 
 def poly_integral(poly, C=0):
-    """this function calculates the integral of a polynomial"""
-    if (not isinstance(poly, list) or
-       not all(isinstance(coef, (int, float)) for coef in poly) or
-       len(poly) == 0 or not isinstance(C, (int, float))):
+    """ This function calculates the
+    integral of the given polynomial """
+
+    if not isinstance(poly, list):
         return None
-    
-    if all(coef == 0 for coef in poly):
-        poly = []
-
-    integral = [poly[i]/i+1 for i in range(len(poly))]
-
-    return [C] + [int(x) if x.is_integer() else x for x in integral]
+    if not all(isinstance(s, (int, float)) for s in poly):
+        return None
+    if not isinstance(C, (int, float)):
+        return None
+    if len(poly) == 0:
+        return None
+    result = [C]
+    for x in range(len(poly)):
+        val = poly[x]/(x + 1)
+        if val.is_integer():
+            val = int(val)
+        result.append(val)
+    while len(result) > 1 and result[-1] == 0:
+        result.pop()
+    return result
