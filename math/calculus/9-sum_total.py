@@ -8,4 +8,4 @@ def summation_i_squared(n):
     if type(n) is not int or n < 1:
         return None
     else:
-        return (n*(n+1)*(n+2)/6)
+        return (n*(n+1)*(n+2))/6
