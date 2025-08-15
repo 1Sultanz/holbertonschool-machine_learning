@@ -11,9 +11,9 @@ def bars():
     plt.bar(people, fruit[0], color="red", label="apples")
     plt.bar(people, fruit[1], color = "yellow", label = "bananas",
                bottom = fruit[0])
-    plt.bar(people, fruit[2], color = "orange", label = "oranges",
+    plt.bar(people, fruit[2], color = "#ff8000", label = "oranges",
                bottom = fruit[0] + fruit[1])
-    plt.bar(people, fruit[3], color = "peach", label="peaches",
+    plt.bar(people, fruit[3], color = "#ffe5b4", label="peaches",
                bottom = fruit[0] + fruit[1] + fruit[2])
     
 
