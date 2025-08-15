@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+"""Change of scale"""
 import numpy as np
 import matplotlib.pyplot as plt
 
 def two():
-
+    """Source code to plot x ↦ y as a line graph"""
     x = np.arange(0, 21000, 1000)
     r = np.log(0.5)
     t1 = 5730
