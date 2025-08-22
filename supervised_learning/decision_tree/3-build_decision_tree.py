@@ -89,9 +89,9 @@ class Node:
         """Return list of leaves."""
         leaves = []
         if self.right_child is not None:
-            leaves += self.right_child.get_leaves_below()
-        if self.left_child is not None:
             leaves += self.left_child.get_leaves_below()
+        if self.left_child is not None:
+            leaves += self.right_child.get_leaves_below()
         if self.is_leaf:
             leaves.append(self)
 
