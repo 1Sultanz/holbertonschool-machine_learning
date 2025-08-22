@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-
+"""
+This module builds a simple decision tree using nodes and leaves.
+It defines Node, Leaf, and Decision_Tree classes with methods to
+calculate depth and store prediction values.
+"""
 import numpy as np
 
 
