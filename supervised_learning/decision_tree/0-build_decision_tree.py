@@ -2,10 +2,19 @@
 
 import numpy as np
 
+
 class Node:
     """Tree node that splits data based on a feature and threshold."""
 
-    def __init__(self, feature=None, threshold=None, left_child=None, right_child=None, is_root=False, depth=0):
+    def __init__(
+        self,
+        feature=None,
+        threshold=None,
+        left_child=None,
+        right_child=None,
+        is_root=False,
+        depth=0
+    ):
         """Create a node with feature, threshold, children and depth."""
         self.feature = feature
         self.threshold = threshold
@@ -20,7 +29,7 @@ class Node:
         """Return maximum depth of this node and its children."""
         if self.right_child is None and self.left_child is None:
             return self.depth
-        
+
         max_depth = self.depth
 
         if self.right_child is not None:
@@ -47,10 +56,17 @@ class Leaf(Node):
         return self.depth
 
 
-class Decision_Tree():
+class Decision_Tree:
     """Decision tree that builds from nodes and leaves."""
 
-    def __init__(self, max_depth=10, min_pop=1, seed=0, split_criterion="random", root=None):
+    def __init__(
+        self,
+        max_depth=10,
+        min_pop=1,
+        seed=0,
+        split_criterion="random",
+        root=None
+    ):
         """Create a tree with max depth, min samples, seed and split rule."""
         self.rng = np.random.default_rng(seed)
         if root:
