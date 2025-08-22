@@ -67,9 +67,11 @@ class Node:
     def __str__(self):
         """Return visual string of the tree with root label."""
         if self.is_root:
-            result = f"root [feature={self.feature}, threshold={self.threshold}]"
+            result = f"root [feature={self.feature},
+            threshold={self.threshold}]"
         else:
-            result = f"-> node [feature={self.feature}, threshold={self.threshold}]"
+            result = f"-> node [feature={self.feature},
+            threshold={self.threshold}]"
 
         if self.left_child is not None:
             left_part = str(self.left_child)
@@ -120,7 +122,10 @@ class Decision_Tree:
     """Decision tree that builds from nodes and leaves."""
 
     def __init__(
-        self, max_depth=10, min_pop=1, seed=0, split_criterion="random", root=None
+        self, max_depth=10,
+        min_pop=1, seed=0,
+        split_criterion="random",
+        root=None
     ):
         """Create a tree with max depth, min samples, seed and split rule."""
         self.rng = np.random.default_rng(seed)
