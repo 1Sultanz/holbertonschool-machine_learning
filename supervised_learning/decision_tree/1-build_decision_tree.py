@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Decision tree implementation."""
+
 import numpy as np
 
 
@@ -40,15 +41,15 @@ class Node:
 
         return max_depth
 
-    def count_nodes(self, only_leaves=False):
-        """Return the number of nodes in the tree."""
+    def count_nodes_below(self, only_leaves=False):
+        """Count nodes below including this one (or only leaves)."""
         count = 0
         if not only_leaves or self.is_leaf:
             count += 1
         if self.right_child is not None:
-            count += self.right_child.count_nodes(only_leaves)
+            count += self.right_child.count_nodes_below(only_leaves)
         if self.left_child is not None:
-            count += self.left_child.count_nodes(only_leaves)
+            count += self.left_child.count_nodes_below(only_leaves)
         return count
 
 
@@ -94,3 +95,7 @@ class Decision_Tree:
     def depth(self):
         """Return maximum depth of the tree."""
         return self.root.max_depth_below()
+
+    def count_nodes(self, only_leaves=False):
+        """Return the number of nodes in the tree."""
+        return self.root.count_nodes_below(only_leaves=only_leaves)
