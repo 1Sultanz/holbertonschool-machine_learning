@@ -69,20 +69,18 @@ class Node:
         return new_text
 
     def __str__(self):
-        """Return visual string of the node."""
-        text = f"[X{self.feature} <= {self.threshold}]"
-
+        """Return visual string of the tree with root label."""
+        root_str = f"root [feature={self.feature}, threshold={self.threshold}]"
+        text = ""
         if self.left_child is not None:
             left_str = self.left_child.__str__()
             if left_str is not None:
-                text = self.left_child_add_prefix(left_str) + text
-
+                text += self.left_child_add_prefix(left_str)
         if self.right_child is not None:
             right_str = self.right_child.__str__()
             if right_str is not None:
                 text += "\n" + self.right_child_add_prefix(right_str)
-
-        return text
+        return root_str + ("\n" + text if text else "")
 
 
 
