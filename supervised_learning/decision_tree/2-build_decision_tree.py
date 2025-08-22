@@ -98,6 +98,10 @@ class Leaf(Node):
     def max_depth_below(self):
         """Return the depth of this leaf."""
         return self.depth
+        
+    def __str__(self):
+        """Return visual string of the leaf."""
+        return f"-> leaf [value={self.value}]"
 
 
 class Decision_Tree:
@@ -130,3 +134,6 @@ class Decision_Tree:
     def count_nodes(self, only_leaves=False):
         """Return the number of nodes in the tree."""
         return self.root.count_nodes_below(only_leaves=only_leaves)
+    def __str__(self):
+        """Return visual string of the tree."""
+        return self.root.__str__()
