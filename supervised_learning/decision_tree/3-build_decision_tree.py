@@ -13,9 +13,9 @@ class Node:
         left_child=None,
         right_child=None,
         is_root=False,
-        depth=0
+        depth=0,
     ):
-        """Create a node with feature, threshold, children and depth."""
+        """Create a node with feature, threshold, children, and depth."""
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -31,13 +31,10 @@ class Node:
             return self.depth
 
         max_depth = self.depth
-
-        if self.right_child is not None:
-            max_depth = max(max_depth, self.right_child.max_depth_below())
-
         if self.left_child is not None:
             max_depth = max(max_depth, self.left_child.max_depth_below())
-
+        if self.right_child is not None:
+            max_depth = max(max_depth, self.right_child.max_depth_below())
         return max_depth
 
     def count_nodes(self, only_leaves=False):
@@ -45,27 +42,26 @@ class Node:
         count = 0
         if not only_leaves or self.is_leaf:
             count += 1
-        if self.right_child is not None:
-            count += self.right_child.count_nodes(only_leaves)
         if self.left_child is not None:
             count += self.left_child.count_nodes(only_leaves)
+        if self.right_child is not None:
+            count += self.right_child.count_nodes(only_leaves)
         return count
-
 
     def left_child_add_prefix(self, text):
         """Add visual prefix for left child."""
         lines = text.split("\n")
         new_text = "    +--" + lines[0] + "\n"
-        for x in lines[1:]:
-            new_text += "    |  " + x + "\n"
+        for line in lines[1:]:
+            new_text += "    |  " + line + "\n"
         return new_text
 
     def right_child_add_prefix(self, text):
         """Add visual prefix for right child."""
         lines = text.split("\n")
         new_text = "    +--" + lines[0] + "\n"
-        for x in lines[1:]:
-            new_text += "       " + x + "\n"
+        for line in lines[1:]:
+            new_text += "       " + line + "\n"
         return new_text
 
     def __str__(self):
@@ -74,27 +70,26 @@ class Node:
             result = f"root [feature={self.feature}, threshold={self.threshold}]"
         else:
             result = f"-> node [feature={self.feature}, threshold={self.threshold}]"
-    
+
         if self.left_child is not None:
             left_part = str(self.left_child)
             result += "\n" + self.left_child_add_prefix(left_part).rstrip()
-    
+
         if self.right_child is not None:
-            right_part = str(self.right_child) 
+            right_part = str(self.right_child)
             result += "\n" + self.right_child_add_prefix(right_part).rstrip()
-    
+
         return result
 
     def get_leaves_below(self):
-        """Return list of leaves."""
+        """Return list of leaves in left-to-right order."""
         leaves = []
-        if self.right_child is not None:
-            leaves += self.left_child.get_leaves_below()
         if self.left_child is not None:
+            leaves += self.left_child.get_leaves_below()
+        if self.right_child is not None:
             leaves += self.right_child.get_leaves_below()
         if self.is_leaf:
             leaves.append(self)
-
         return leaves
 
 
@@ -111,13 +106,13 @@ class Leaf(Node):
     def max_depth_below(self):
         """Return the depth of this leaf."""
         return self.depth
-        
+
     def __str__(self):
         """Return visual string of the leaf."""
         return f"-> leaf [value={self.value}]"
 
     def get_leaves_below(self):
-        """Return list of leaves."""
+        """Return list containing only self."""
         return [self]
 
 
@@ -125,19 +120,11 @@ class Decision_Tree:
     """Decision tree that builds from nodes and leaves."""
 
     def __init__(
-        self,
-        max_depth=10,
-        min_pop=1,
-        seed=0,
-        split_criterion="random",
-        root=None
+        self, max_depth=10, min_pop=1, seed=0, split_criterion="random", root=None
     ):
         """Create a tree with max depth, min samples, seed and split rule."""
         self.rng = np.random.default_rng(seed)
-        if root:
-            self.root = root
-        else:
-            self.root = Node(is_root=True)
+        self.root = root if root else Node(is_root=True)
         self.explanatory = None
         self.target = None
         self.max_depth = max_depth
@@ -148,12 +135,15 @@ class Decision_Tree:
     def depth(self):
         """Return maximum depth of the tree."""
         return self.root.max_depth_below()
+
     def count_nodes(self, only_leaves=False):
         """Return the number of nodes in the tree."""
-        return self.root.count_nodes_below(only_leaves=only_leaves)
+        return self.root.count_nodes(only_leaves=only_leaves)
+
     def __str__(self):
         """Return visual string of the tree."""
-        return self.root.__str__()
+        return str(self.root)
+
     def get_leaves(self):
-        """Return leaves of the tree."""
+        """Return leaves of the tree in left-to-right order."""
         return self.root.get_leaves_below()
