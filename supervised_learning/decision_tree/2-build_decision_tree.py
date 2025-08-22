@@ -70,17 +70,20 @@ class Node:
 
     def __str__(self):
         """Return visual string of the tree with root label."""
-        root_str = f"root [feature={self.feature}, threshold={self.threshold}]"
-        text = ""
+        if self.is_root:
+            result = f"root [feature={self.feature}, threshold={self.threshold}]"
+        else:
+            result = f"-> node [feature={self.feature}, threshold={self.threshold}]"
+    
         if self.left_child is not None:
-            left_str = self.left_child.__str__()
-            if left_str is not None:
-                text += self.left_child_add_prefix(left_str)
+            left_part = str(self.left_child)
+            result += "\n" + self.left_child_add_prefix(left_part).rstrip()
+    
         if self.right_child is not None:
-            right_str = self.right_child.__str__()
-            if right_str is not None:
-                text += "\n" + self.right_child_add_prefix(right_str)
-        return root_str + ("\n" + text if text else "")
+            right_part = str(self.right_child) 
+            result += "\n" + self.right_child_add_prefix(right_part).rstrip()
+    
+        return result
 
 
 
