@@ -122,29 +122,25 @@ class Node:
             if child is not None:
                 child.update_bounds_below()
 
+    def update_indicator(self):
+        """Update the indicator function for this node."""
 
-        def is_small_enough(x):
-            """Check if all features are <= upper bounds."""
-            if not self.upper:
+        def is_large_enough(x):
+            """Check if all features are > lower bounds."""
+            if not self.lower:
                 return np.ones(x.shape[0], dtype=bool)
 
             conditions = []
-            for key in self.upper.keys():
+            for key in self.lower.keys():
                 if key < x.shape[1]:
-                    conditions.append(np.less_equal(x[:, key],
-                                                    self.upper[key]))
+                    conditions.append(np.greater(x[:, key], self.lower[key]))
                 else:
                     conditions.append(np.ones(x.shape[0], dtype=bool))
-
             if conditions:
                 return np.all(np.array(conditions), axis=0)
             else:
                 return np.ones(x.shape[0], dtype=bool)
 
-        self.indicator = lambda x: np.all(np.array(
-                                                   [is_large_enough(x),
-                                                    is_small_enough(x)]),
-                                          axis=0)
         def is_small_enough(x):
             """Check if all features are <= upper bounds."""
             if not self.upper:
