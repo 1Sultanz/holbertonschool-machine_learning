@@ -254,3 +254,7 @@ class Decision_Tree:
             return predictions
 
         self.predict = predict_func
+    
+    def pred(self, x):
+        """Predict the value for a single sample x."""
+        return self.root.pred(x)
