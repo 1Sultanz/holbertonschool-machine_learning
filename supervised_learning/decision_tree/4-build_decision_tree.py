@@ -103,31 +103,29 @@ class Node:
         return leaves
 
     def update_bounds_below(self):
-        """Recursively compute lower and upper bounds for each node."""
-
+        """Update bounds for this node and recursively for all children."""
         if self.is_root:
             self.upper = {0: np.inf}
-            self.lower = {0: -np.inf}
+            self.lower = {0: -1 * np.inf}
 
-        for child, direction in [(self.left_child, "left"), (self.right_child, "right")]:
-            if child is None:
-                continue
+        for child in [self.left_child, self.right_child]:
+            if child is not None:
+                child.upper = self.upper.copy()
+                child.lower = self.lower.copy()
 
-            # Copy parent's bounds
-            child.lower = dict(self.lower)
-            child.upper = dict(self.upper)
+                if child == self.left_child:
+                    if self.feature in child.lower:
+                        child.lower[self.feature] =
+                        max(child.lower[self.feature], self.threshold)
+                    else:
+                        child.lower[self.feature] = self.threshold
+                else:
+                    if self.feature in child.upper:
+                        child.upper[self.feature] =
+                        min(child.upper[self.feature], self.threshold)
+                    else:
+                        child.upper[self.feature] = self.threshold
 
-            # Update depending on split direction
-            if direction == "left":
-                child.upper[self.feature] = min(
-                    child.upper.get(self.feature, np.inf), self.threshold
-                )
-            else:  # right child
-                child.lower[self.feature] = max(
-                    child.lower.get(self.feature, -np.inf), self.threshold
-                )
-
-        # Recurse
         for child in [self.left_child, self.right_child]:
             if child is not None:
                 child.update_bounds_below()
