@@ -106,28 +106,18 @@ class Node:
         """Update bounds for this node and recursively for all children."""
         if self.is_root:
             self.upper = {0: np.inf}
-            self.lower = {0: -np.inf}
+            self.lower = {0: -1 * np.inf}
 
         for child in [self.left_child, self.right_child]:
             if child is not None:
-                # copy valide bounds from parent
-                child.upper = dict(self.upper)
-                child.lower = dict(self.lower)
+                child.upper = self.upper.copy()
+                child.lower = self.lower.copy()
 
                 if child == self.left_child:
-                    # left child → upper bound məhdudlaşdırılır
-                    child.upper[self.feature] = min(
-                        child.upper.get(self.feature, np.inf),
-                        self.threshold
-                    )
+                    child.lower[self.feature] = self.threshold
                 else:
-                    # right child → lower bound məhdudlaşdırılır
-                    child.lower[self.feature] = max(
-                        child.lower.get(self.feature, -np.inf),
-                        self.threshold
-                    )
+                    child.upper[self.feature] = self.threshold
 
-        # rekursiv olaraq uşaqlara tətbiq et
         for child in [self.left_child, self.right_child]:
             if child is not None:
                 child.update_bounds_below()
