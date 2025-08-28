@@ -5,15 +5,15 @@ import numpy as np
 
 
 class Neuron:
-  """This class defines a single neuron performing
-  binary classifiaction"""
+  i """This class defines a single neuron performing
+    binary classifiaction"""
   
-  def __init__(self, nx):
+    def __init__(self, nx):
     """Initializes the neuron with nx inputs"""
-    if type(nx) != int:
-      raise TypeError("nx must be an integer")
-    if nx < 1:
-      raise ValueError("nx must be a positive integer")
+        if type(nx) is not int:
+            raise TypeError("nx must be an integer")
+        if nx < 1:
+            raise ValueError("nx must be a positive integer")
 
     self.nx = nx
     self.W = np.random.randn(1, nx)
