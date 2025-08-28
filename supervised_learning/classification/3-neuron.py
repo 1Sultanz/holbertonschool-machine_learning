@@ -39,7 +39,7 @@ class Neuron:
         self.__A = np.matmul(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-self.__A))
         return self.__A
-    
+
     def cost(self, Y, A):
         """Calculates the cost of the neuron"""
         m = Y.shape[1]
