@@ -50,9 +50,6 @@ class Neuron:
     def evaluate(self, X, Y):
         """Evaluates the neuron's predictions"""
         A = self.forward_prop(X)
+        prediction = np.where(A >= 0.5, 1, 0)  # vectorized threshold
         cost = self.cost(Y, A)
-        if A > 0.5:
-            prediction = 1
-        else:
-            prediction = 0
         return prediction, cost
