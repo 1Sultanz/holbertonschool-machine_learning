@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Neuron"""
+
+import numpy as np
+
+
+class Neuron:
+    """This class defines a single neuron performing
+    binary classifiaction"""
+
+    def __init__(self, nx):
+        """Initializes the neuron with nx inputs"""
+        if type(nx) is not int:
+            raise TypeError("nx must be an integer")
+        if nx < 1:
+            raise ValueError("nx must be a positive integer")
+        self.nx = nx
+        self.__W = np.random.randn(1, nx)
+        self.__b = 0
+        self.__A = 0
+
+    @property
+    def W(self):
+        """Getter for W"""
+        return self.__W
+
+    @property
+    def b(self):
+        """Getter for b"""
+        return self.__b
+
+    @property
+    def A(self):
+        """Getter for A"""
+        return self.__A
+
+    def forward_prop(self, X):
+        """Calculates the forward propagation of the neuron"""
+        self.__A = np.matmul(self.__W, X) + self.__b
+        self.__A = 1 / (1 + np.exp(-self.__A))
+        return self.__A
+
+    def cost(self, Y, A):
+        """Calculates the cost of the neuron"""
+        m = Y.shape[1]
+        cost = (-1 / m) * np.sum(
+            Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+        return cost
+
+    def evaluate(self, X, Y):
+        """Evaluates the neuron's predictions"""
+        A = self.forward_prop(X)
+        prediction = np.where(A >= 0.5, 1, 0)  # vectorized threshold
+        cost = self.cost(Y, A)
+        return prediction, cost
+
+    def gradient_descent(self, X, Y, A, alpha=0.05):
+        """Calculates one pass of gradient descent on the neuron"""
+        self.__W = self.__W - alpha * np.matmul(
+            (A - Y), X.T) / X.shape[1]
+        self.__b = self.__b - alpha * np.sum(A - Y) / X.shape[1]
+        return self.__W, self.__b
