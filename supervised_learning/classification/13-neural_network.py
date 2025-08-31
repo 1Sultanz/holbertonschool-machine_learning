@@ -83,12 +83,18 @@ class NeuralNetwork:
         """Calculates one pass of gradient descent on the neural network"""
         m = Y.shape[1]
 
-        self.__W1 = self.__W1 - alpha * (1 / m) * np.matmul(
-            (A2 - Y), X.T)
-        self.__b1 = self.__b1 - alpha * (1 / m) * np.sum(
-            (A2 - Y), axis=1, keepdims=True)
-        self.__W2 = self.__W2 - alpha * (1 / m) * np.matmul(
-            A1, (A2 - Y).T)
-        self.__b2 = self.__b2 - alpha * (1 / m) * np.sum(
-            A2 - Y, axis=1, keepdims=True)
-        return self.__W1, self.__b1, self.__W2, self.__b2
+        # Output layer
+        dz2 = A2 - Y
+        dW2 = np.matmul(dz2, A1.T) / m
+        db2 = np.sum(dz2, axis=1, keepdims=True) / m
+
+        # Hidden layer
+        dz1 = np.matmul(self.__W2.T, dz2) * (A1 * (1 - A1))
+        dW1 = np.matmul(dz1, X.T) / m
+        db1 = np.sum(dz1, axis=1, keepdims=True) / m
+
+        # Update parameters
+        self.__W1 -= alpha * dW1
+        self.__b1 -= alpha * db1
+        self.__W2 -= alpha * dW2
+        self.__b2 -= alpha * db2
