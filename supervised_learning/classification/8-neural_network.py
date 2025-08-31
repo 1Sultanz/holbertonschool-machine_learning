@@ -7,7 +7,8 @@ import numpy as np
 class NeuralNetwork:
     """This class defines a neural network with one hidden
      layer performing binary classification"""
-     def __init__(self, nx, nodes):
+
+    def __init__(self, nx, nodes):
         """Class constructor"""
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
