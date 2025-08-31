@@ -60,7 +60,7 @@ class Neuron:
             (A - Y), X.T) / X.shape[1]
         self.__b = self.__b - alpha * np.sum(A - Y) / X.shape[1]
         return self.__W, self.__b
-    
+
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """Trains the neuron"""
         if type(iterations) is not int:
@@ -74,4 +74,4 @@ class Neuron:
         for i in range(iterations):
             A = self.forward_prop(X)
             self.gradient_descent(X, Y, A, alpha)
-        return self.evaluate(X,Y)
+        return self.evaluate(X, Y)
