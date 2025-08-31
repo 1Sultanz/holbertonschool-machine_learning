@@ -65,7 +65,7 @@ class NeuralNetwork:
             self.__W2, self.__A1) - self.__b2))
         return self.__A1, self.__A2
 
-   def cost(self, Y, A2):
+    def cost(self, Y, A2):
         """Calculates the cost of the neural network"""
         m = Y.shape[1]
         cost = (-1 / m) * np.sum(
