@@ -71,7 +71,7 @@ class NeuralNetwork:
         cost = (-1 / m) * np.sum(
             Y * np.log(A2) + (1 - Y) * np.log(1.0000001 - A2))
         return cost
- 
+
     def evaluate(self, X, Y):
         """Evaluates the neural network's predictions"""
         A1, A2 = self.forward_prop(X)
