@@ -5,7 +5,8 @@ import numpy as np
 
 
 class DeepNeuralNetwork:
-    """This class defines a deep neural network performing binary classification"""
+    """This class defines a deep neural
+    network performing binary classification"""
 
     def __init__(self, nx, layers):
         """Class Constructor"""
@@ -27,6 +28,7 @@ class DeepNeuralNetwork:
             prev_nodes = nx if i == 0 else layers[i - 1]
 
             self.weights["W" + str(i + 1)] = (
-                np.random.randn(layers[i], prev_nodes) * np.sqrt(2 / prev_nodes)
+                np.random.randn(
+                    layers[i], prev_nodes) * np.sqrt(2 / prev_nodes)
             )
             self.weights["b" + str(i + 1)] = np.zeros((layers[i], 1))
