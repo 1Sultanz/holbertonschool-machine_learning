@@ -58,6 +58,6 @@ class DeepNeuralNetwork:
             b = self.__weights["b" + str(i)]
             self.__cache["A" + str(i)] = 1/(1 + np.exp(-(np.dot(W, A) + b))
 
-        return self.__cache['A{}'.format(self.__L)], self.
+        return self.__cache['A{}'.format(self.__L)], self.__cache
 
 
