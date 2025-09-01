@@ -23,8 +23,8 @@ class DeepNeuralNetwork:
         self.cache = {}
         self.weights = {}
 
-        for element in range(self.L):
-            if element <= 0:
+        for l in range(self.L):
+            if l <= 0:
                 raise TypeError("layers must be a list of positive integers")
             
             if l == 1:
