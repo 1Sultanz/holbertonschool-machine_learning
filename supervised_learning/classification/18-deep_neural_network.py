@@ -54,10 +54,10 @@ class DeepNeuralNetwork:
 
         for i in range(1, self.__L + 1):
             W = self.__weights["W" + str(i)]
-            A = self.__cache["A" + str(i - 1)]
+            A_prev = self.__cache["A" + str(i - 1)]
             b = self.__weights["b" + str(i)]
-            self.__cache["A" + str(i)] = 1/(1 + np.exp(-(np.dot(W, A) + b))
+            self.__cache["A" + str(i)] = 1 / (1 + np.exp(-(np.dot(W, A_prev) + b)))
 
-        return self.__cache['A{}'.format(self.__L)], self.__cache
+        return self.__cache["A" + str(self.__L)], self.__cache
 
 
