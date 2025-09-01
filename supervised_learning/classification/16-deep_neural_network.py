@@ -21,12 +21,13 @@ class DeepNeuralNetwork:
         self.weights = {}
 
         for l in range(self.L):
-            aise TypeError("layers must be a list of positive integers")
+            if not isinstance(layers[l], int) or layers[l] <= 0:
+                raise TypeError("layers must be a list of positive integers")
 
-            if l == 1:
+            if l == 0:
                 prev = nx
             else:
-                prev = layers[l - 2]
+                prev = layers[l - 1]
 
             self.weights["W" + str(l)] = {
                 np.randm.randn(layers[i-1], prev) * np.sqrt(2 / prev)
