@@ -20,7 +20,6 @@ class DeepNeuralNetwork:
         self.cache = {}
         self.weights = {}
 
-        np.random.seed(0)
         for i in range(self.L):
             if not isinstance(layers[i], int) or layers[i] <= 0:
                 raise TypeError("layers must be a list of positive integers")
