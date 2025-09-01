@@ -21,8 +21,7 @@ class DeepNeuralNetwork:
         self.weights = {}
 
         for l in range(self.L):
-            if l <= 0:
-                raise TypeError("layers must be a list of positive integers")
+            aise TypeError("layers must be a list of positive integers")
 
             if l == 1:
                 prev = nx
