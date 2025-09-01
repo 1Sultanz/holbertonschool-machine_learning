@@ -8,7 +8,7 @@ class NeuralNetwork:
     """This class defines a deep neural network performing binary classification"""
     
     def __init__(self, nx, layers):
-        """Class constructor"""
+        """Class Constructor"""
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
         if nx < 1:
@@ -23,11 +23,10 @@ class NeuralNetwork:
         self.cache = {}
         self.weights = {}
 
-        for l in range(1, self.L + 1):
-            if l == 1:
-                prev = nx
-            else:
-                prev = layers[l-1]
+        if i == 1:
+            prev = nx
+        else:
+            prev = layers[l-1]
 
         self.weights["W" + str(l)] = {
             np.randm.randn(layers[i-1], prev) * np.sqrt(2 / prev)
