@@ -4,9 +4,9 @@
 import numpy as np
 
 
-class  DeepNeuralNetwork:
+class DeepNeuralNetwork:
     """This class defines a deep neural network performing binary classification"""
-    
+
     def __init__(self, nx, layers):
         """Class Constructor"""
         if type(nx) is not int:
@@ -23,10 +23,11 @@ class  DeepNeuralNetwork:
         self.cache = {}
         self.weights = {}
 
-        if i == 1:
-            prev = nx
-        else:
-            prev = layers[l-1]
+        for l in range(1, self.L + 1):
+            if l == 1:
+                prev = nx
+            else:
+                prev = layers[l - 2]
 
         self.weights["W" + str(l)] = {
             np.randm.randn(layers[i-1], prev) * np.sqrt(2 / prev)
