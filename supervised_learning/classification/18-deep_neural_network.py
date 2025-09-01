@@ -56,8 +56,7 @@ class DeepNeuralNetwork:
             W = self.__weights["W" + str(i)]
             A_prev = self.__cache["A" + str(i - 1)]
             b = self.__weights["b" + str(i)]
-            self.__cache["A" + str(i)] = 1 / (1 + np.exp(-(np.dot(W, A_prev) + b)))
+            self.__cache["A" + str(i)] = 1 / (1 + np.exp(
+                -(np.dot(W, A_prev) + b)))
 
         return self.__cache["A" + str(self.__L)], self.__cache
-
-
