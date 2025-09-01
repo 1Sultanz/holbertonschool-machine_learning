@@ -23,14 +23,17 @@ class DeepNeuralNetwork:
         self.cache = {}
         self.weights = {}
 
-        for l in range(1, self.L + 1):
+        for element in range(self.L):
+            if element <= 0:
+                raise TypeError("layers must be a list of positive integers")
+            
             if l == 1:
                 prev = nx
             else:
                 prev = layers[l - 2]
 
-        self.weights["W" + str(l)] = {
-            np.randm.randn(layers[i-1], prev) * np.sqrt(2 / prev)
-        }
+            self.weights["W" + str(l)] = {
+                np.randm.randn(layers[i-1], prev) * np.sqrt(2 / prev)
+            }
 
-        self.weights["b" + str(l)] = np.zeros((layers[l-1], 1))
+            self.weights["b" + str(l)] = np.zeros((layers[l-1], 1))
