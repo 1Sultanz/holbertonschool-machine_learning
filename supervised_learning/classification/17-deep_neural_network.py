@@ -36,14 +36,14 @@ class DeepNeuralNetwork:
     @property
     def cache(self):
         """Getter method for cache"""
-        self.__cache
+        return self.__cache
 
     @property
     def L(self):
         """Getter method for L"""
-        self.__L
+        return self.__L
 
     @property
     def weights(self):
         """Getter method for weights"""
-        self.__weights
+        return self.__weights
