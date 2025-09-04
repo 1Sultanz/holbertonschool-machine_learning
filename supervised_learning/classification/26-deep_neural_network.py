@@ -109,10 +109,10 @@ class DeepNeuralNetwork:
             self.gradient_descent(Y, self.__cache, alpha)
         return self.evaluate(X, Y)\
 
-        def save(self, filename):
-            """Saves the instance object to a file in pickle format"""
-            if not filename.endswith(".pkl"):
-                filename += ".pkl"
-            with open(filename, "wb") as f:
-                pickle.dump(self, f)
-            return filename
+    def save(self, filename):
+        """Saves the instance object to a file in pickle format"""
+        if not filename.endswith(".pkl"):
+            filename += ".pkl"
+        with open(filename, "wb") as f:
+            pickle.dump(self, f)
+        return filename
