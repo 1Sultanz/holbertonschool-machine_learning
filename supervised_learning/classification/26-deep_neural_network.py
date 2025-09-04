@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 
+
 class DeepNeuralNetwork:
     """This class defines a deep neural
     network performing binary classification"""
