@@ -107,7 +107,7 @@ class DeepNeuralNetwork:
         for i in range(iterations):
             self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha)
-        return self.evaluate(X, Y)\
+        return self.evaluate(X, Y)
 
     def save(self, filename):
         """Saves the instance object to a file in pickle format"""
