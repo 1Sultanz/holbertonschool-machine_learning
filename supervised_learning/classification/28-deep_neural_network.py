@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
-
+import os
 
 class DeepNeuralNetwork:
     """This class defines a deep neural
@@ -141,3 +141,12 @@ class DeepNeuralNetwork:
         with open(filename, "wb") as f:
             pickle.dump(self, f)
         return filename
+
+    @staticmethod
+    def load(filename):
+        """Load a pickled DeepNeuralNetwork object."""
+        try:
+            with open(filename, "rb") as file:
+                return pickle.load(file)
+        except FileNotFoundError:
+            return None
