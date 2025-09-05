@@ -27,5 +27,5 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
         if i < n-1:
             x = K.layers.Dropout(drop)(x)
 
-    model = K.Model(inputs = inputs, outputs = x)
+    model = K.Model(inputs=inputs, outputs=x)
     return model
