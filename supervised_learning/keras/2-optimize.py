@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Tensorflow 2 & Keras"""
 import tensorflow.keras as K
-from keras.src.backend.jax.nn import categorical_crossentropy
 
 
 def optimize_model(network, alpha, beta1, beta2):
