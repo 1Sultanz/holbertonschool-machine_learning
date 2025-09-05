@@ -117,19 +117,20 @@ class NeuralNetwork:
                 raise ValueError("step must be positive and <= iterations")
 
 
-        costs, iteration_list = [], []
+        costs = []
+        iteration_list = []
 
-        for iteration in range(iterations + 1):
+        for i in range(iterations + 1):
             A1, A2 = self.forward_prop(X)
             self.gradient_descent(X, Y, A1, A2, alpha)
 
-            if (iteration % step == 0) or (iteration == iterations):
+            if (i % step == 0) or (i == iterations):
                 cost = self.cost(Y, A2)
                 if verbose:
-                    print(f"Cost after {iteration} iterations: {cost}")
+                    print(f"Cost after {i} iterations: {cost}")
                 if graph:
                     costs.append(cost)
-                    iteration_list.append(iteration)
+                    iteration_list.append(i)
 
         if graph:
             plt.plot(iteration_list, costs)
