@@ -9,7 +9,7 @@ def train_model(network, data, labels, batch_size,
                 verbose=True, shuffle=False):
     """This function trains a model using mini-batch gradient descent"""
     callbacks = []
-    if early_stopping and validation_data is not None:
+    if early_stopping and validation_data:
         callbacks.append(K.callbacks.EarlyStopping(
             monitor='val_loss', patience=patience
         ))
