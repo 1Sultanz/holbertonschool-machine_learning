@@ -19,7 +19,7 @@ def train_model(network, data, labels, batch_size,
     if learning_rate_decay and validation_data:
         def scheduler(epoch):
             return alpha/(1 + decay_rate*epoch)
- 
+
         callbacks.append(K.callbacks.LearningRateScheduler(
             scheduler, verbose=1
         ))
