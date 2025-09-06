@@ -19,14 +19,16 @@ def train_model(network, data, labels, batch_size,
     if learning_rate_decay and validation_data:
         def scheduler(epoch):
             return alpha/(1 + decay_rate*epoch)
-    if filepath:
-        callbacks.append(K.callbacks.ModelCheckpoint(
-            filepath=filepath, monitor='val_loss', save_best_only=True
-        ))
-
     callbacks.append(K.callbacks.LearningRateScheduler(
         scheduler, verbose=1
     ))
+    
+    if filepath:
+        callbacks.append(K.callbacks.ModelCheckpoint(
+            filepath=filepath, monitor='val_loss',
+            save_best_only=save_best
+        ))
+
 
     history = network.fit(
         data, labels, batch_size=batch_size,
