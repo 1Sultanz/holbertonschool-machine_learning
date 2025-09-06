@@ -8,6 +8,7 @@ def save_config(network, filename):
     with open(filename, 'w') as f:
         f.write(network.to_json())
 
+
 def load_config(filename):
     """Load Keras model architecture from JSON file."""
     with open(filename, 'r') as f:
