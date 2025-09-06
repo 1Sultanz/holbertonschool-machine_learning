@@ -12,4 +12,4 @@ def load_config(filename):
     """Load Keras model architecture from JSON file."""
     with open(filename, 'r') as f:
         model_json = f.read()
-    return K.model.model_from_json(model_json)
+    return K.models.model_from_json(model_json)
