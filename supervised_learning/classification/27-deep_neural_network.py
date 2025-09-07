@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Deep Neural Network"""
+"""This module includes the class DeepNeuralNetwork"""
 
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
 import os
+import pickle
 
 
 class DeepNeuralNetwork:
-    """This class defines a deep neural
-    network performing binary classification"""
+    """This class is for implementing
+     multi-layered(more than two) Neural Networks"""
 
     def __init__(self, nx, layers):
-        """Class Constructor"""
-        if type(nx) is not int:
+        """Initialising the Deep Neural Network"""
+        if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
@@ -24,63 +24,78 @@ class DeepNeuralNetwork:
         self.__cache = {}
         self.__weights = {}
 
-        for i in range(self.__L):
-            if not isinstance(layers[i], int) or layers[i] <= 0:
+        for lx in range(1, self.__L + 1):
+            # Validate each layer element during the loop
+            if not isinstance(layers[lx - 1], int) or layers[lx - 1] <= 0:
                 raise TypeError("layers must be a list of positive integers")
 
-            prev_nodes = nx if i == 0 else layers[i - 1]
+            if lx == 1:
+                previous_nodes = nx
+            else:
+                previous_nodes = layers[lx - 2]
 
-            self.__weights["W" + str(i + 1)] = (
-                np.random.randn(
-                    layers[i], prev_nodes) * np.sqrt(2 / prev_nodes)
+            self.weights['W' + str(lx)] = (
+                np.random.randn(layers[lx - 1], previous_nodes) *
+                np.sqrt(2 / previous_nodes)
             )
-            self.__weights["b" + str(i + 1)] = np.zeros((layers[i], 1))
-
-    @property
-    def cache(self):
-        """Getter method for cache"""
-        return self.__cache
+            self.weights['b' + str(lx)] = np.zeros((layers[lx - 1], 1))
 
     @property
     def L(self):
-        """Getter method for L"""
+        """getter for number of layers in the DNN"""
         return self.__L
 
     @property
+    def cache(self):
+        """getter method for
+        intermediary values of the DNN"""
+        return self.__cache
+
+    @property
     def weights(self):
-        """Getter method for weights"""
+        """getter method for weights
+        and biases of the DNN"""
         return self.__weights
 
     def forward_prop(self, X):
-        """Forward Propagation"""
-        self.__cache["A0"] = X
-
+        """Calculate forward propagation of the neural network."""
+        self.__cache['A0'] = X
         for i in range(1, self.__L + 1):
-            W = self.__weights["W" + str(i)]
-            A_prev = self.__cache["A" + str(i - 1)]
-            b = self.__weights["b" + str(i)]
-            self.__cache["A" + str(i)] = 1 / (1 + np.exp(
-                -(np.dot(W, A_prev) + b)))
+            W = self.__weights['W{}'.format(i)]
+            A = self.__cache['A{}'.format(i-1)]
+            b = self.__weights['b{}'.format(i)]
+            z = np.dot(W, A) + b
 
-        return self.__cache["A" + str(self.__L)], self.__cache
+            if i == self.__L:
+                exp_z = np.exp(z - np.max(z, axis=0, keepdims=True))
+                self.__cache['A{}'.format(i)] = \
+                    exp_z / np.sum(exp_z, axis=0, keepdims=True)
+            else:
+                self.__cache['A{}'.format(i)] = 1 / (1 + np.exp(-z))
+
+        return self.__cache['A{}'.format(self.__L)], self.__cache
 
     def cost(self, Y, A):
-        """The cost of the model"""
+        """Calculate the cost of the model using logistic regression."""
         m = Y.shape[1]
-        return -(1 / m) * np.sum(
-            Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+        cost = -np.sum(Y * np.log(A + 1e-15)) / m
+        return cost
 
     def evaluate(self, X, Y):
-        """Evaluate"""
+        """Evaluate the neural network's predictions."""
         self.forward_prop(X)
         A = self.__cache['A{}'.format(self.__L)]
-        prediction = np.where(A >= 0.5, 1, 0)
         cost = self.cost(Y, A)
-        return prediction, cost
+
+        predictions = np.zeros_like(A)
+        max_indices = np.argmax(A, axis=0)
+        predictions[max_indices, np.arange(A.shape[1])] = 1
+
+        return predictions, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
-        """Gradient descent"""
-        m = len(Y[0])
+        """Calculate one pass of gradient descent on the neural network."""
+        m = Y.shape[1]
         AL = cache['A{}'.format(self.__L)]
         dZl = AL - Y
         for i in range(self.__L, 0, -1):
