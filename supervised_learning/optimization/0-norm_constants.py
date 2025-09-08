@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Normalization Constants"""
-import tensorflow as tf
+import numpy as np
 
 
 def normalization_constants(X):
     """This function calculates the normalization
     constants of a matrix"""
-    mean, variance = tf.nn.moments(X, axes=[0])
-    std = tf.sqrt(variance)
+    mean = np.mean(X, axis=0)
+    std = np.std(X, axis=0)
     return mean, std
