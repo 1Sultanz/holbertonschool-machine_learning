@@ -12,7 +12,7 @@ def create_mini_batches(X, Y, batch_size):
 
     for first_index in range(0, i, batch_size):
         last_index = min(first_index + batch_size, i)
-        X_batch = X_shuffle[first_index, last_index]
-        Y_batch = Y_shuffle[first_index, last_index]
+        X_batch = X_shuffle[first_index:last_index]
+        Y_batch = Y_shuffle[first_index:last_index]
         mini_batch.append((X_batch, Y_batch))
     return mini_batch
