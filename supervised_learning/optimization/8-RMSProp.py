@@ -9,3 +9,4 @@ def create_RMSProp_op(alpha, beta2, epsilon):
     optimizer = tf.keras.optimizers.RMSprop(
         alpha, beta2, epsilon
     )
+    return optimizer
