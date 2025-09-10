@@ -7,6 +7,8 @@ def learning_rate_decay(alpha, decay_rate, decay_step):
     """This function creates a learning rate decay
      operation in tensorflow using inverse time decay"""
     optimizer = tf.keras.optimizers.schedules.InverseTimeDecay(
-        alpha, decay_step, decay_rate
+        initial_learning_rate=alpha,
+        decay_steps=decay_step,
+        decay_rate=decay_rate
     )
     return optimizer
