@@ -18,6 +18,6 @@ def f1_score(confusion):
         if prec[i] + sens[i] == 0:
             f1[i] = 0
         else:
-            f1[i] = (2 * prec[i] + sens[i]) / (
+            f1[i] = (2 * prec[i] * sens[i]) / (
                     prec[i] + sens[i])
     return f1
