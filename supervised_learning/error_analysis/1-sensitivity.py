@@ -4,7 +4,8 @@ import numpy as np
 
 
 def sensitivity(confusion):
-    """This function calculates the sensitivity for each class in a confusion matrix"""
+    """This function calculates the sensitivity
+    for each class in a confusion matrix"""
     classes = confusion.shape[0]
     sensitivities = np.zeros(classes)
 
