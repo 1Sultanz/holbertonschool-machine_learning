@@ -4,7 +4,7 @@ import tensorflow as tf
 
 
 def dropout_create_layer(prev, n, activation,
-                         keep_prob,training=True):
+                         keep_prob, training=True):
     """This function creates a layer
      of a neural network using dropout"""
     initializer = tf.keras.initializers.VarianceScaling(
