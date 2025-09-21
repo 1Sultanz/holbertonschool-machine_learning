@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env pyton3
 """Forward Propagation with Dropout"""
 import numpy as np
 
@@ -12,7 +12,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         b = weights.get("b{}".format(i))
         A_prev = cache.get("A{}".format(i-1))
         Z = W @ A_prev + b
-        if i == L:
+        if i == L+1:
             exps = np.exp(Z - np.max(Z, axis=0, keepdims=True))
             A = exps / np.sum(exps, axis=0, keepdims=True)
         else:
