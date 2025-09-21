@@ -1,4 +1,4 @@
-#!/usr/bin/env pyton3
+#!/usr/bin/env python3
 """Forward Propagation with Dropout"""
 import numpy as np
 
