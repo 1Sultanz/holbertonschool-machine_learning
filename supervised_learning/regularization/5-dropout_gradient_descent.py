@@ -20,7 +20,7 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
         if i > 1:
             dA_prev = W.T @ dZ
             D = cache['D' + str(i - 1)]
-            dA_prev = (dA_prev @ D) / keep_prob
+            dA_prev = dA_prev @ D
             dA_prev /= keep_prob
 
             dZ = dA_prev * (1 - A_prev ** 2)
