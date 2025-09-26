@@ -14,7 +14,7 @@ def convolve_grayscale_same(images, kernel):
     pw_right = kw - pw_left - 1
     image_pad = np.pad(
         images,
-        pad_width=((0, 0), (ph_top, ph_bottom), (pw_right, pw_left)),
+        pad_width=((0, 0), (ph_top, ph_bottom), (pw_left, pw_right)),
         mode="constant",
         constant_values=0
     )
