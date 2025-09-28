@@ -14,8 +14,10 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     elif padding == "valid":
         ph = 0
         pw = 0
-    elif padding is tuple:
+    elif isinstance(padding, tuple):
         ph, pw = padding
+    else:
+        raise ValueError("padding must be 'same', 'valid', or a tuple")
 
     image_pad = np.pad(
         images,
