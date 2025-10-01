@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Pooling Forward Prop"""
 import numpy as np
-from Scripts.rst2odt import output
 
 
 def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
