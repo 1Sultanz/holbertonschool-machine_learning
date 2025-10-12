@@ -2,8 +2,7 @@
 """Inception Block"""
 from getopt import long_has_args
 
-import tensorflow.keras as K
-from tensorflow.python.layers.pooling import max_pooling1d
+from tensorflow import keras as K
 
 
 def inception_block(A_prev, filters):
