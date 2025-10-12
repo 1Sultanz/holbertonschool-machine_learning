@@ -11,7 +11,7 @@ def projection_block(A_prev, filters, s=2):
 
     conv = K.layers.Conv2D(
         filters=F11, kernel_size=1, padding="same",
-        kernel_initializer=init
+        strides=s, kernel_initializer=init
     )(A_prev)
     batch_normalization = K.layers.BatchNormalization()(conv)
     activation = K.layers.Activation("relu")(batch_normalization)
@@ -29,7 +29,7 @@ def projection_block(A_prev, filters, s=2):
     )(activation2)
     conv4 = K.layers.Conv2D(
         filters=F12, kernel_size=1, padding="same",
-        kernel_initializer=init
+        strides=s, kernel_initializer=init
     )(A_prev)
     batch_normalization3 = K.layers.BatchNormalization()(conv3)
     batch_normalization4 = K.layers.BatchNormalization()(conv4)
