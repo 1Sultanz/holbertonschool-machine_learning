@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """Inception Block"""
-from getopt import long_has_args
-
 from tensorflow import keras as K
 
 
@@ -52,3 +50,4 @@ def inception_block(A_prev, filters):
     )(max_pooling)
     output = K.layers.Concatenate()([conv_F1, conv_F3, conv_F5, conv_FPP])
     return output
+
