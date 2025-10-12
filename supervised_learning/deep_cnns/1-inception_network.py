@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Identity block"""
 from tensorflow import keras as K
-from tensorflow.python.keras.saving.saved_model.save_impl import input_layer
-
 inception_block = __import__('0-inception_block').inception_block
 
 
