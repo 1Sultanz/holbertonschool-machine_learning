@@ -50,4 +50,3 @@ def inception_block(A_prev, filters):
     )(max_pooling)
     output = K.layers.Concatenate()([conv_F1, conv_F3, conv_F5, conv_FPP])
     return output
-
