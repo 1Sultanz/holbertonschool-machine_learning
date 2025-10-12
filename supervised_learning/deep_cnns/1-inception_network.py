@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Identity block"""
+"""Identity Network"""
 from tensorflow import keras as K
 inception_block = __import__('0-inception_block').inception_block
 
@@ -56,7 +56,7 @@ def inception_network():
     inception_5b = inception_block(inception_5a,
                                    [384, 192, 384, 48, 128, 128])
     avg_pool = K.layers.AveragePooling2D(
-        pool_size=7, strides=1, padding="same"
+        pool_size=7, strides=1, padding="valid"
     )(inception_5b)
     drop = K.layers.Dropout(rate=0.4)(avg_pool)
     output_layer = K.layers.Dense(
