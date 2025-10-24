@@ -24,10 +24,11 @@ class Yolo:
         boxes = []
         box_confidences = []
         box_class_probs = []
+        image_height, image_width = image_size
 
-        grid_height, grid_width, anchor_boxes, _ = outputs.shape
-
-        for i, output in :
+        for i, output in enumerate(outputs):
+            grid_height, grid_width, anchor_boxes, _ = outputs.shape
+            
             box_confidence = output[..., 4:5]
             box_class_prob = output[..., 5:]
 
@@ -80,5 +81,5 @@ class Yolo:
             boxes.append(box)
             box_confidences.append(box_confidence)
             box_class_probs.append(box_class_prob)
-        
+
         return (boxes, box_confidences, box_class_probs)
