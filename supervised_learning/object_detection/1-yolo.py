@@ -27,8 +27,8 @@ class Yolo:
         image_height, image_width = image_size
 
         for i, output in enumerate(outputs):
-            grid_height, grid_width, anchor_boxes, _ = outputs.shape
-            
+            grid_height, grid_width, anchor_boxes, _ = output.shape
+
             box_confidence = output[..., 4:5]
             box_class_prob = output[..., 5:]
 
@@ -44,7 +44,7 @@ class Yolo:
             c_x = np.tile(c_x, [grid_height, 1, anchor_boxes])
 
             c_y = np.arange(grid_height).reshape(grid_height, 1, 1)
-            c_y = np.tile(grid_height, [1, grid_width, anchor_boxes])
+            c_y = np.tile(c_y, [1, grid_width, anchor_boxes])
 
             anchors_w = self.anchors[i, :, 0]
             anchors_h = self.anchors[i, :, 1]
@@ -58,8 +58,11 @@ class Yolo:
             b_x = t_x + c_x
             b_y = t_y + c_y
 
+            b_x /= grid_width
+            b_y /= grid_height
+
             b_w = anchors_w * np.exp(t_w)
-            b_h = anchors_h * np.exp(t_y)
+            b_h = anchors_h * np.exp(t_h)
 
             input_width = self.model.input.shape[1]
             input_height = self.model.input.shape[2]
@@ -82,4 +85,4 @@ class Yolo:
             box_confidences.append(box_confidence)
             box_class_probs.append(box_class_prob)
 
-        return (boxes, box_confidences, box_class_probs)
+        return boxes, box_confidences, box_class_probs
