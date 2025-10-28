@@ -116,34 +116,43 @@ class Yolo:
         box_predictions = []
         predicted_box_classes = []
         predicted_box_scores = []
+
+        def iou(box, boxes):
+            """IOU"""
+            x1, y1, x2, y2 = box
+            x1s, y1s, x2s, y2s = (boxes[:, 0], boxes[:, 1],
+                                  boxes[:, 2], boxes[:, 3])
+            inter_x1 = np.maximum(x1, x1s)
+            inter_y1 = np.maximum(y1, y1s)
+            inter_x2 = np.minimum(x2, x2s)
+            inter_y2 = np.minimum(y2, y2s)
+            inter_area = (np.maximum(0, inter_x2 - inter_x1) *
+                          np.maximum(0, inter_y2 - inter_y1))
+            box_area = (x2 - x1) * (y2 - y1)
+            boxes_area = (x2s - x1s) * (y2s - y1s)
+            union_area = box_area + boxes_area - inter_area
+            iou = inter_area / union_area
+            return iou
+
         unique_classes = np.unique(box_classes)
-
         for cls in unique_classes:
-            class_mask = box_classes == cls
-            class_boxes = filtered_boxes[class_mask]
-            class_box_scores = box_scores[class_mask]
-
-            sorted_indices = np.argsort(class_box_scores)[::-1]
-            keep_indices = []
-
-            while len(sorted_indices) > 0:
-                # Ən yüksək xallı indeksi götür
-                current = sorted_indices[0]
-                keep_indices.append(current)
-
-                if len(sorted_indices) == 1:
+            cls_mask = box_classes == cls
+            cls_boxes = filtered_boxes[cls_mask]
+            cls_scores = box_scores[cls_mask]
+            sorted_idx = np.argsort(cls_scores)[::-1]
+            cls_boxes = cls_boxes[sorted_idx]
+            cls_scores = cls_scores[sorted_idx]
+            while len(cls_boxes) > 0:
+                box_predictions.append(cls_boxes[0])
+                predicted_box_scores.append(cls_scores[0])
+                predicted_box_classes.append(cls)
+                if len(cls_boxes) == 1:
                     break
-
-                ious = self._iou(class_boxes[current], class_boxes[sorted_indices[1:]])
-                keep_mask = ious < self.nms_t
-                sorted_indices = sorted_indices[1:][keep_mask]
-
-            box_predictions.append(class_boxes[keep_indices])
-            predicted_box_classes.append(np.full(len(keep_indices), cls))
-            predicted_box_scores.append(class_box_scores[keep_indices])
-
-        box_predictions = np.concatenate(box_predictions, axis=0)
-        predicted_box_classes = np.concatenate(predicted_box_classes, axis=0)
-        predicted_box_scores = np.concatenate(predicted_box_scores, axis=0)
-
-        return (box_predictions, predicted_box_classes, predicted_box_scores)
+                ious = iou(cls_boxes[0], cls_boxes[1:])
+                mask = ious < self.nms_t
+                cls_boxes = cls_boxes[1:][mask]
+                cls_scores = cls_scores[1:][mask]
+        box_predictions = np.array(box_predictions)
+        predicted_box_classes = np.array(predicted_box_classes)
+        predicted_box_scores = np.array(predicted_box_scores)
+        return box_predictions, predicted_box_classes, predicted_box_scores
