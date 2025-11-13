@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Initialize Poisson"""
-from math import factorial
 
 
 class Poisson:
