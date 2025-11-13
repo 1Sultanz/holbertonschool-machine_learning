@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Initialize Poisson"""
-import numpy as np
-import math
+from math import factorial
 
 
 class Poisson:
@@ -26,5 +25,8 @@ class Poisson:
         if k < 0:
             return 0
         e = 2.7182818285
-        pmf = ((e ** -self.lambtha) * self.lambtha ** k) / math.factorial(k)
+        factorial = 1
+        for i in range(1, k+1):
+            factorial *= i
+        pmf = ((e ** -self.lambtha) * self.lambtha ** k) / factorial
         return pmf
