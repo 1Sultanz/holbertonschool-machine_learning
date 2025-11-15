@@ -8,7 +8,7 @@ class Normal:
         """class constructor"""
         if data is None:
             if stddev <= 0:
-                raise ValueError("stddev must be a positive")
+                raise ValueError("stddev must be a positive value")
             self.mean = float(mean)
             self.stddev = float(stddev)
         else:
