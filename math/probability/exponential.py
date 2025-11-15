@@ -13,6 +13,6 @@ class Exponential:
         else:
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
-            if data < 2:
+            if len(data) < 2:
                 raise ValueError("data must conatain multiple values")
             self.lambtha = float(sum(data)/len(data))
