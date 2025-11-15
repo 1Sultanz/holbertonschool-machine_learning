@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Normal Distribution"""
+pi = 3.1415926536
+e = 2.7182818285
 
 
 class Normal:
@@ -18,7 +20,7 @@ class Normal:
                 raise ValueError("data must contain multiple values")
             self.mean = float(sum(data)/len(data))
             variance = sum((x - self.mean) ** 2 for x in data) / len(data)
-            self.stddev = float(variance ** 0.5)
+            self.stddev = float(variance ** 0.5)\
 
     def z_score(self, x):
         """Normalize Normal"""
@@ -27,3 +29,9 @@ class Normal:
     def x_value(self, z):
         """X value"""
         return z * self.stddev + self.mean
+
+    def pdf(self, x):
+        """Probabilit Density Function"""
+        factor = 1 / (self.stddev * (2 * pi) ** 0.5)
+        exponent = e ** (-0.5 * (self.z_score(x)) ** 2)
+        return factor * exponent
