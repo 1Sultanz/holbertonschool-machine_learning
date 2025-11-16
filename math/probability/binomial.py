@@ -41,9 +41,9 @@ class Binomial:
             return 0
 
         binom = (self.factorial(self.n) /
-                                (self.factorial(k) * self.factorial(self.n - k)))
+                 (self.factorial(k) * self.factorial(self.n - k)))
         pmf = (binom * (self.p ** k)
-                     * ((1 - self.p) ** (self.n - k)))
+               * ((1 - self.p) ** (self.n - k)))
         return pmf
 
     def cdf(self, k):
@@ -54,6 +54,7 @@ class Binomial:
             return 0
         cdf = 0
         for i in range(0, k + 1):
-            binom = self.factorial(self.n) / (self.factorial(i) * self.factorial(self.n - i))
+            binom = (self.factorial(self.n) / 
+                     (self.factorial(i) * self.factorial(self.n - i)))
             cdf += binom * (self.p ** i) * ((1 - self.p) ** (self.n - i))
         return cdf
