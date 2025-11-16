@@ -4,6 +4,7 @@
 
 class Binomial:
     """This class represents a binomial distribution"""
+
     def __init__(self, data=None, n=1, p=0.5):
         """CLass Constructor"""
         if data is None:
@@ -23,3 +24,23 @@ class Binomial:
             self.p = float(1 - (variance / mean))
             self.n = round(mean / self.p)
             self.p = float(mean / self.n)
+
+    def pmf(self, k):
+        """Probability Mass Function for a given number of successes"""
+        k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+
+        def factorial(num):
+            if num <= 1:
+                return 1
+            result = 1
+            for i in range(2, num + 1):
+                result *= i
+            return result
+
+        binomial_coefficient = (factorial(self.n) /
+                                (factorial(k) * factorial(self.n - k)))
+        pmf_value = (binomial_coefficient * (self.p ** k)
+                     * ((1 - self.p) ** (self.n - k)))
+        return pmf_value
