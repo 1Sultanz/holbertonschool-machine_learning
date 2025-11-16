@@ -54,7 +54,7 @@ class Binomial:
             return 0
         cdf = 0
         for i in range(0, k + 1):
-            binom = (self.factorial(self.n) / 
+            binom = (self.factorial(self.n) /
                      (self.factorial(i) * self.factorial(self.n - i)))
             cdf += binom * (self.p ** i) * ((1 - self.p) ** (self.n - i))
         return cdf
