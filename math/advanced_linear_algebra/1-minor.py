@@ -55,4 +55,3 @@ def minor(matrix):
         minor.append(i)
 
     return minor
-
