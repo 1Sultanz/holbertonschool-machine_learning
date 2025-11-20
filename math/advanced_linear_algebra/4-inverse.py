@@ -127,4 +127,3 @@ def inverse(matrix):
            for j in range(len(matrix))]
 
     return inv
-print(inverse(mat4))
