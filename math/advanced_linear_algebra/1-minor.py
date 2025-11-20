@@ -37,7 +37,7 @@ def minor(matrix):
     for sub_list in matrix:
         if not isinstance(sub_list, list):
             raise TypeError("matrix must be a list of lists")
-        if len(matrix) != len(matrix[0]):
+        if len(matrix) != len(sub_list):
             raise ValueError("matrix must be a non-empty square matrix")
 
     if len(matrix) == 1:
@@ -55,3 +55,4 @@ def minor(matrix):
         minor.append(i)
 
     return minor
+
