@@ -109,6 +109,8 @@ def inverse(matrix):
     """This function calculates the inverse of a matrix"""
     if not isinstance(matrix, list):
         raise TypeError("matrix must be a list of lists")
+    if matrix == [[]]:
+        raise ValueError("matrix must be a non-empty square matrix")
     for sub_list in matrix:
         if not isinstance(sub_list, list):
             raise TypeError("matrix must be a list of lists")
@@ -125,3 +127,4 @@ def inverse(matrix):
            for j in range(len(matrix))]
 
     return inv
+print(inverse(mat4))
