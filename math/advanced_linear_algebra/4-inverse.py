@@ -123,7 +123,7 @@ def inverse(matrix):
         return None
 
     matrix = adjugate(matrix)
-    inv = [[matrix[i][j] / det for i in range(len(matrix))]
-           for j in range(len(matrix))]
+    inv = [[matrix[i][j] / det for j in range(len(matrix))]
+           for i in range(len(matrix))]
 
     return inv
