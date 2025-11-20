@@ -69,6 +69,9 @@ def cofactor(matrix):
         if len(matrix) != len(sub_list):
             raise ValueError("matrix must be a non-empty square matrix")
 
+    if len(matrix) == 1:
+        return [[1]]
+
     n = len(matrix)
     cof = []
 
