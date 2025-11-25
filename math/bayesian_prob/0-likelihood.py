@@ -6,7 +6,7 @@ import numpy as np
 def n_choose_k(n, k):
     """Calculate combination C(n, k) without using math module"""
     k = min(k, n - k)
-    result = 1
+    result = 1.0
     for i in range(1, k + 1):
         result = result * (n - i + 1) // i
     return result
