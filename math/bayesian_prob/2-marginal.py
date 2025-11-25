@@ -61,7 +61,7 @@ def intersection(x, n, P, Pr):
 
 
 def marginal(x, n, P, Pr):
-    """This function calculates the marginal 
+    """This function calculates the marginal
     likelihood of obtaining this data"""
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
@@ -80,7 +80,7 @@ def marginal(x, n, P, Pr):
         raise ValueError("All values in Pr must be in the range [0, 1]")
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    
+
     intersection_result = intersection(x, n, P, Pr)
     marginal_likelihood = np.sum(intersection_result)
 
