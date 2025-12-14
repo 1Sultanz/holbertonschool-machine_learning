@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Hyperparameter Tuning"""
 import numpy as np
+from scipy.stats import norm
 GP = __import__('2-gp').GaussianProcess
 
 
