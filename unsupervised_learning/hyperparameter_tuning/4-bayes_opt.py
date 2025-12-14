@@ -28,8 +28,10 @@ class BayesianOptimization:
         else:
             mu_sample_opt = np.amin(self.gp.Y)
             imp = mu_sample_opt - mu - self.xsi
+
         with np.errstate(divide='warn'):
             Z = imp / sigma
             ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+
         X_next = self.X_s[np.argmax(ei)]
         return X_next, ei.reshape(-1)
