@@ -27,7 +27,7 @@ class BidirectionalCell:
             h_next, x_t), axis=1), self.Whb) + self.bhb)
         return h_prev
 
-      def output(self, H):
+    def output(self, H):
         """Output"""
         Y = self.softmax(np.dot(H, self.Wy) + self.by)
         return Y
