@@ -8,10 +8,9 @@ def cumulative_bleu(references, sentence, n):
     Calculates the cumulative n-gram BLEU score for a sentence.
     Weights are distributed evenly across all n-grams up to n.
     """
- 
     def get_ngram_precision(references, sentence, k):
         """Helper to calculate modified precision for a specific k-gram"""
-        sentence_ngrams = [" ".join(sentence[i:i + k]) 
+        sentence_ngrams = [" ".join(sentence[i:i + k])
                            for i in range(len(sentence) - k + 1)]
 
         if not sentence_ngrams:
@@ -25,14 +24,15 @@ def cumulative_bleu(references, sentence, n):
         for gram in counts:
             max_ref_count = 0
             for ref in references:
-                ref_ngrams = [" ".join(ref[i:i + k]) 
+                ref_ngrams = [" ".join(ref[i:i + k])
                               for i in range(len(ref) - k + 1)]
                 count_in_ref = ref_ngrams.count(gram)
                 if count_in_ref > max_ref_count:
                     max_ref_count = count_in_ref
             max_counts[gram] = max_ref_count
 
-        keep = sum(min(counts[gram], max_counts.get(gram, 0)) for gram in counts)
+        keep = sum(min(counts[gram], max_counts.get(gram, 0))
+                   for gram in counts)
         return keep / len(sentence_ngrams)
 
     precisions = []
