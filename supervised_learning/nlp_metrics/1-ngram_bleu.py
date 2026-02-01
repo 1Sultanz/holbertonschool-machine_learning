@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""N-gram BLEU score"""
 import numpy as np
 
 
