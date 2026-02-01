@@ -2,6 +2,7 @@
 """Unigram BLEU score"""
 import numpy as np
 
+
 def uni_bleu(references, sentence):
     """Calculates the unigram BLEU score for a sentence"""
     c_len = len(sentence)
@@ -23,7 +24,6 @@ def uni_bleu(references, sentence):
         max_counts[word] = max_ref_count
 
     keep = sum(min(counts[word], max_counts.get(word, 0)) for word in counts)
-    
     precision = keep / c_len if c_len > 0 else 0
 
     if c_len > closest_ref_len:
